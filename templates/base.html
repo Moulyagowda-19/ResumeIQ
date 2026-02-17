@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeIQ - AI Resume Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- GSAP & Particles -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        glass: 'rgba(255, 255, 255, 0.05)',
+                        neon: '#00f3ff',
+                        purple: '#bd00ff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-dark text-white min-h-screen flex flex-col overflow-x-hidden selection:bg-purple selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='/'">
+                    <i class="fa-solid fa-cube text-neon text-2xl mr-2 animate-pulse"></i>
+                    <span
+                        class="font-bold text-2xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">ResumeIQ</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin.dashboard') }}"
+                        class="text-sm font-medium text-purple hover:text-white transition">Admin Panel</a>
+                    {% else %}
+                    <a href="{{ url_for('main.dashboard') }}"
+                        class="text-sm font-medium text-gray-300 hover:text-white transition">My Dashboard</a>
+                    {% endif %}
+                    <span class="text-sm text-gray-400">Hi, <span class="text-white font-medium">{{
+                            current_user.username }}</span></span>
+                    <a href="{{ url_for('auth.logout') }}"
+                        class="text-sm font-medium text-gray-300 hover:text-white transition">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('auth.login') }}"
+                        class="text-sm font-medium text-gray-300 hover:text-white transition">Login</a>
+                    <a href="{{ url_for('auth.register') }}"
+                        class="bg-neon text-black px-5 py-2 rounded-full font-bold hover:bg-white transition shadow-[0_0_15px_rgba(0,243,255,0.4)]">Sign
+                        Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

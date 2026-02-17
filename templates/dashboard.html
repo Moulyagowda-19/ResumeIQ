@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen pt-28 pb-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="flex justify-between items-end mb-10 border-b border-white/10 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-white mb-2">My Dashboard</h1>
+                <p class="text-gray-400">Track your resume optimizations</p>
+            </div>
+            <a href="{{ url_for('main.index') }}"
+                class="bg-neon text-black px-4 py-2 rounded-lg font-bold hover:bg-white transition">
+                <i class="fa-solid fa-plus mr-2"></i> New Scan
+            </a>
+        </div>
+
+        {% if not resumes %}
+        <div class="text-center py-20 bg-white/5 rounded-2xl border border-dashed border-white/10">
+            <i class="fa-regular fa-file-pdf text-4xl text-gray-600 mb-4"></i>
+            <h3 class="text-xl font-medium text-white">No scans yet</h3>
+            <p class="text-gray-500 mt-2 mb-6">Upload your resume to get started.</p>
+            <a href="{{ url_for('main.index') }}" class="text-neon hover:underline">Go to Analyzer</a>
+        </div>
+        {% else %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for resume in resumes %}
+            <div class="glass-panel p-6 rounded-2xl relative group hover:bg-white/5 transition duration-300">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="px-2 py-1 rounded bg-white/10 text-xs text-gray-300">{{
+                        resume.created_at.strftime('%Y-%m-%d') }}</span>
+                    <div class="text-right">
+                        <span
+                            class="block text-2xl font-bold {{ 'text-green-400' if resume.score >= 80 else 'text-yellow-400' if resume.score >= 60 else 'text-red-400' }}">{{
+                            resume.score }}</span>
+                        <span class="text-xs text-gray-500">ATS Score</span>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-white mb-1 truncate" title="{{ resume.filename }}">{{ resume.filename
+                    }}</h3>
+                <p class="text-neon text-sm mb-4">{{ resume.role_applied }}</p>
+
+                <div class="border-t border-white/10 pt-4 mt-4 flex justify-between items-center">
+                    <button onclick="viewAnalysis({{ resume.id }})"
+                        class="text-sm text-gray-300 hover:text-white transition">View Report</button>
+                    <!-- <button class="text-gray-500 hover:text-red-400 transition"><i class="fa-solid fa-trash"></i></button> -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function viewAnalysis(id) {
+        // In a real app, this would load the specific report. 
+        // For now, let's just redirect to the result page with the latest data in localstorage if it matches, 
+        // OR better, we should implement a View Report route. 
+        // Since we stored full JSON in DB, we could technically re-populate it.
+        alert("View Report feature would load specific ID: " + id + "\n(For MVP, please Scan New Resume)");
+    }
+</script>
+{% endblock %}

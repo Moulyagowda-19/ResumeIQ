@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-black overflow-hidden relative">
+
+    <!-- Split Screen Background -->
+    <div class="absolute inset-0 flex">
+        <!-- Left Side (Particles & Brand) -->
+        <div
+            class="hidden lg:flex w-1/2 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative items-center justify-center overflow-hidden">
+            <div id="particles-js" class="absolute inset-0 z-0 opacity-40"></div>
+
+            <!-- Animated Shapes -->
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple/20 rounded-full blur-[80px] float-anim"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-neon/10 rounded-full blur-[100px] float-anim"
+                style="animation-delay: -3s;"></div>
+
+            <div class="relative z-10 p-12 text-white max-w-lg">
+                <div class="mb-6 opacity-0 translate-y-10 gsap-hero">
+                    <i class="fa-solid fa-cube text-neon text-4xl mb-4"></i>
+                    <h1 class="text-5xl font-bold leading-tight mb-4">
+                        Your Resume Has a Story. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon to-purple">Let's Improve
+                            It.</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg font-light">
+                        Join thousands of professionals using AI to optimize their resumes for ATS compatibility and
+                        land their dream jobs.
+                    </p>
+                </div>
+
+                <div class="flex space-x-4 mt-8 opacity-0 translate-y-10 gsap-hero" style="transition-delay: 0.2s;">
+                    <div class="flex -space-x-2">
+                        <img class="w-10 h-10 rounded-full border-2 border-black"
+                            src="https://ui-avatars.com/api/?name=Alex+M&background=0D8ABC&color=fff" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-black"
+                            src="https://ui-avatars.com/api/?name=Sarah+J&background=bd00ff&color=fff" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-black"
+                            src="https://ui-avatars.com/api/?name=Mike+T&background=00f3ff&color=000" alt="User">
+                    </div>
+                    <div class="flex items-center text-sm text-gray-400">
+                        <span class="font-bold text-white mr-1">500+</span> resumes optimized today
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side (Form) -->
+        <div class="w-full lg:w-1/2 bg-black flex items-center justify-center p-8 relative">
+            <div
+                class="absolute top-0 right-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none">
+            </div>
+            <!-- Mobile Background Blobs -->
+            <div
+                class="lg:hidden absolute top-[-10%] right-[-20%] w-[80%] h-[50%] bg-purple/20 blur-[100px] rounded-full">
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Card Container -->
+    <div class="relative z-20 w-full max-w-md perspective-1000" id="authCardContainer">
+        <div class="relative w-full transition-transform duration-700 transform-style-3d" id="authCardInner">
+
+            <!-- LOGIN FACE (Front) -->
+            <div class="absolute w-full backface-hidden">
+                <div class="glass-panel p-8 rounded-3xl shadow-2xl relative overflow-hidden border border-white/10">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon to-purple"></div>
+
+                    <h2 class="text-2xl font-bold text-white mb-2">Welcome Back</h2>
+                    <p class="text-gray-400 text-sm mb-8">Enter your credentials to access your dashboard.</p>
+
+                    <form id="loginForm" class="space-y-6">
+                        <div class="group relative">
+                            <input type="text" id="loginUsername" name="username" required
+                                class="peer w-full bg-transparent border-b border-gray-600 py-2 text-white focus:outline-none focus:border-neon transition-colors placeholder-transparent">
+                            <label for="loginUsername"
+                                class="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-neon peer-focus:text-sm">Username</label>
+                        </div>
+
+                        <div class="group relative">
+                            <input type="password" id="loginPassword" name="password" required
+                                class="peer w-full bg-transparent border-b border-gray-600 py-2 text-white focus:outline-none focus:border-neon transition-colors placeholder-transparent">
+                            <label for="loginPassword"
+                                class="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-neon peer-focus:text-sm">Password</label>
+                            <button type="button"
+                                class="absolute right-0 top-2 text-gray-500 hover:text-white transition"
+                                onclick="togglePassword('loginPassword')">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between text-sm">
+                            <label class="flex items-center text-gray-400 hover:text-white cursor-pointer transition">
+                                <input type="checkbox"
+                                    class="form-checkbox bg-transparent border-gray-600 rounded text-neon focus:ring-0 mr-2">
+                                Remember me
+                            </label>
+                            <a href="#" class="text-neon hover:text-white transition">Forgot password?</a>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-3 bg-gradient-to-r from-neon to-blue-500 text-black font-bold rounded-xl shadow-lg hover:shadow-neon/50 transform hover:-translate-y-1 transition duration-300 flex justify-center items-center group">
+                            <span class="group-hover:mr-2 transition-all">Sign In</span>
+                            <i class="fa-solid fa-arrow-right opacity-0 group-hover:opacity-100 transition-all"></i>
+                        </button>
+                    </form>
+
+                    <div class="mt-8 text-center text-gray-500 text-sm">
+                        Don't have an account?
+                        <button onclick="flipCard('register')"
+                            class="text-white font-medium hover:text-neon transition ml-1">Create Account</button>
+                    </div>
+
+                    <div id="loginError" class="mt-4 text-red-500 text-sm text-center hidden"></div>
+                </div>
+
+                <div class="mt-6 text-center text-xs text-gray-500">
+                    <p>Protected by reCAPTCHA and subject to the Privacy Policy.</p>
+                </div>
+            </div>
+
+            <!-- REGISTER FACE (Back) -->
+            <div class="absolute w-full backface-hidden rotate-y-180">
+                <div class="glass-panel p-8 rounded-3xl shadow-2xl relative overflow-hidden border border-white/10">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple to-pink-500"></div>
+
+                    <h2 class="text-2xl font-bold text-white mb-2">Create Account</h2>
+                    <p class="text-gray-400 text-sm mb-8">Join ResumeIQ to start optimizing your career.</p>
+
+                    <form id="registerForm" class="space-y-6">
+                        <div class="group relative">
+                            <input type="text" id="regUsername" name="username" required
+                                class="peer w-full bg-transparent border-b border-gray-600 py-2 text-white focus:outline-none focus:border-purple transition-colors placeholder-transparent">
+                            <label for="regUsername"
+                                class="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple peer-focus:text-sm">Choose
+                                Username</label>
+                        </div>
+
+                        <div class="group relative">
+                            <input type="password" id="regPassword" name="password" required
+                                class="peer w-full bg-transparent border-b border-gray-600 py-2 text-white focus:outline-none focus:border-purple transition-colors placeholder-transparent">
+                            <label for="regPassword"
+                                class="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple peer-focus:text-sm">Create
+                                Password</label>
+                            <button type="button"
+                                class="absolute right-0 top-2 text-gray-500 hover:text-white transition"
+                                onclick="togglePassword('regPassword')">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <div class="text-xs text-gray-500">
+                            By registering, you agree to our <a href="#" class="text-gray-300 hover:text-white">Terms of
+                                Service</a>.
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-3 bg-gradient-to-r from-purple to-pink-600 text-white font-bold rounded-xl shadow-lg hover:shadow-purple/50 transform hover:-translate-y-1 transition duration-300 flex justify-center items-center group">
+                            <span class="group-hover:mr-2 transition-all">Get Started</span>
+                            <i class="fa-solid fa-rocket opacity-0 group-hover:opacity-100 transition-all"></i>
+                        </button>
+                    </form>
+
+                    <div class="mt-8 text-center text-gray-500 text-sm">
+                        Already have an account?
+                        <button onclick="flipCard('login')"
+                            class="text-white font-medium hover:text-neon transition ml-1">Sign In</button>
+                    </div>
+                    <div id="registerError" class="mt-4 text-red-500 text-sm text-center hidden"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 3D Flip Utilities */
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    .transform-style-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
+
+    /* GSAP will animate this, but setup initial state */
+    #authCardContainer {
+        min-height: 500px;
+    }
+
+    /* Prevent collapse */
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Init Particles
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#ffffff" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.3, "random": true },
+                    "size": { "value": 2, "random": true },
+                    "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 },
+                    "move": { "enable": true, "speed": 0.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                    "modes": { "bubble": { "distance": 200, "size": 3, "duration": 2, "opacity": 0.8 } }
+                },
+                "retina_detect": true
+            });
+        }
+
+        // GSAP Entrance
+        gsap.from(".gsap-hero", { duration: 1.2, opacity: 0, y: 30, stagger: 0.2, ease: "power3.out", delay: 0.2 });
+        gsap.from("#authCardContainer", { duration: 1.5, opacity: 0, scale: 0.9, x: 50, ease: "power3.out", delay: 0.5 });
+
+        // Handle Flip based on URL mode
+        const mode = "{{ mode }}"; // 'login' or 'register'
+        if (mode === 'register') {
+            gsap.set("#authCardInner", { rotationY: 180 });
+        }
+
+        // Form Handlers
+        handleAuthForm('loginForm', '/login', 'loginError');
+        handleAuthForm('registerForm', '/register', 'registerError');
+    });
+
+    function flipCard(target) {
+        const card = document.getElementById('authCardInner');
+        if (target === 'register') {
+            gsap.to(card, { duration: 0.8, rotationY: 180, ease: "power2.inOut" });
+            window.history.pushState({}, '', '/auth/register');
+        } else {
+            gsap.to(card, { duration: 0.8, rotationY: 0, ease: "power2.inOut" });
+            window.history.pushState({}, '', '/auth/login');
+        }
+        // Clear errors
+        document.getElementById('loginError').classList.add('hidden');
+        document.getElementById('registerError').classList.add('hidden');
+    }
+
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function handleAuthForm(formId, endpoint, errorId) {
+        const form = document.getElementById(formId);
+        const errorDiv = document.getElementById(errorId);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorDiv.classList.add('hidden');
+
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            const jsonData = Object.fromEntries(formData.entries()); // Convert to JSON object
+
+            try {
+                const response = await fetch('/auth' + endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jsonData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Success Animation
+                    btn.innerHTML = '<i class="fa-solid fa-check text-xl"></i>';
+                    btn.classList.replace('bg-gradient-to-r', 'bg-green-500');
+
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 800);
+                } else {
+                    throw new Error(data.message || 'Authentication failed');
+                }
+            } catch (error) {
+                // Shake Animation
+                gsap.to("#authCardContainer", { duration: 0.1, x: -10, yoyo: true, repeat: 5 });
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+
+                // Reset Button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    }
+</script>
+{% endblock %}
