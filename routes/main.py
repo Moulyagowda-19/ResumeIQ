@@ -80,8 +80,8 @@ def upload_file():
             return jsonify({'error': str(e)}), 500
         finally:
             # Clean up uploaded file
-            if os.path.exists(filepath):
-                os.remove(filepath)
+            # File is persisted in uploads folder for future reference
+            pass
     else:
         return jsonify({'error': 'Invalid file type. Only PDF and DOCX allowed.'}), 400
 

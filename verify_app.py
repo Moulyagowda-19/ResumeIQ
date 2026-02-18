@@ -57,6 +57,32 @@ def test_resume_iq():
     else:
         print(f"Dashboard access failed: {response.status_code}")
 
+    # 4. Upload Resume
+    upload_url = f"{BASE_URL}/upload"
+    print(f"Testing Resume Upload at {upload_url}...")
+    
+    files = {'resume': open('test_resume.docx', 'rb')}
+    data = {'role': 'Backend Developer'}
+    
+    response = session.post(upload_url, files=files, data=data)
+    
+    if response.status_code == 200:
+        print("Resume uploaded successfully!")
+        result = response.json()
+        print(f"Score: {result.get('score')}")
+        print("Verified analysis data returned.")
+    else:
+        print(f"Upload failed: {response.status_code}")
+        print(response.text)
+
+    # 5. Verify Database Persistence (via Dashboard check again)
+    print("Verifying persistence in Dashboard...")
+    response = session.get(dashboard_url)
+    if "test_resume.docx" in response.text:
+        print("SUCCESS: Resume found in dashboard!")
+    else:
+        print("FAILURE: Resume NOT found in dashboard.")
+
 if __name__ == "__main__":
     try:
         test_resume_iq()
